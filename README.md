@@ -41,7 +41,7 @@ make up
 
 # 모든 서비스 종료 (앱 + PostgreSQL)
 make down
----
+```
 
 접속: http://localhost:8501
 
