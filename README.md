@@ -47,7 +47,6 @@ make down
 
 ### 3️⃣ 📁 Project Folder Structure
 
-```plaintext
 ```
 ├── app
 │   ├── app.py
