@@ -16,7 +16,7 @@ from t2sql.vectordb.chromadb import VectorStore
 from typing import Any
 from t2sql.utils import parse_json, calculate_threshold
 import json
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class ExpandQuestionLLM(BaseModel):
@@ -25,7 +25,7 @@ class ExpandQuestionLLM(BaseModel):
 
 
 class TablesListLLM(BaseModel):
-    tables: list[str]
+    tables: list[str] = Field(default_factory=list)
 
 
 class TableWhyLLM(BaseModel):
@@ -51,7 +51,7 @@ class DataSource(BaseModel):
 
 class NormalizedStructureLLM(BaseModel):
     init_question: str | None = None
-    tables: list[str] = []
+    tables: list[str] = Field(default_factory=list)
     normalized_question: str
     requested_entities: str
     data_source: list[DataSource]

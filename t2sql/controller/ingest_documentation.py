@@ -1,5 +1,7 @@
 from logging import getLogger
 from t2sql.ingestors.text_document_ingestor import TextIngestion
+import os
+
 
 
 logger = getLogger(__name__)
@@ -130,6 +132,11 @@ async def train_local(
     from t2sql.agent import get_sql_agent
 
     agent = get_sql_agent(descriptor_base_path)
+    try:
+        os.makedirs(agent._docs_md_folder)
+        os.mkdir(agent._examples_extended_folder)
+    except:
+        pass
     await agent.generate_json_from_md_documentation()
     await agent.train_on_information_schema(train_if_doc_exists=train_if_doc_exists)
     await agent.train_on_documentation_json()

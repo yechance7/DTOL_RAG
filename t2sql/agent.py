@@ -170,7 +170,9 @@ class Text2SQLAgent(TextIngestion):
 def get_sql_agent(descriptor_base_path: str | None = None) -> Text2SQLAgent:
     try:
         config = get_config(descriptor_base_path)
+        print("get_sql_agent: got config")
         vector_store = ChromaDB(config)
+        print("get_sql_agent: got vector store")
         return Text2SQLAgent(config, vector_store)
     except Exception as e:
         logger.error(f"Cannot create Text2SQL Agent, error: {e}")

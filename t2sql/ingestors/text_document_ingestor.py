@@ -237,7 +237,7 @@ class TextIngestion(BaseText2SQLAgent, ABC):
         """
 
         existing_documents = await self._vector_store.get_document_by_name(
-            document_data.document_name
+            document_data["document_name"]
         )
         existing_documents = existing_documents["ids"]
 
@@ -479,6 +479,7 @@ class TextIngestion(BaseText2SQLAgent, ABC):
             query = f"SELECT * FROM INFORMATION_SCHEMA.COLUMNS"
 
         df_information_schema = await self._client.execute_query(query)
+        print("train_on_information_schema: got database schema")
 
         inf = df_information_schema[
             ["table_catalog", "table_schema", "table_name", "column_name", "data_type"]
@@ -524,6 +525,8 @@ class TextIngestion(BaseText2SQLAgent, ABC):
                 self.default_model,
                 messages=messages,
             )
+
+
             md_content = completion_result.choices[0].message.content
 
             with open(fname, "w") as file:
